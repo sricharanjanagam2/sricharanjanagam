@@ -1,11 +1,15 @@
+import { useState } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Skills from './components/Skills';
 import Projects from './components/Projects';
 import MemorySimulator from './components/MemorySimulator';
 import Footer from './components/Footer';
+import ContactModal from './components/ContactModal';
 
 function App() {
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+
   return (
     <div className="min-h-screen bg-[#050510] font-inter text-slate-200 overflow-x-hidden selection:bg-cyan-500/30 selection:text-cyan-100">
       
@@ -14,10 +18,11 @@ function App() {
       <div className="fixed inset-0 z-0 pointer-events-none bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900 via-[#050510] to-[#050510]"></div>
 
       <div className="relative z-10 flex flex-col min-h-screen">
-        <Navbar />
+        <Navbar onOpenContact={() => setIsContactModalOpen(true)} />
         
         <main className="flex-grow">
-          <Hero />
+          <Hero onOpenContact={() => setIsContactModalOpen(true)} />
+
           
           {/* Subtle separator */}
           <div className="w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent my-10 relative">
@@ -46,6 +51,7 @@ function App() {
         </main>
 
         <Footer />
+        <ContactModal isOpen={isContactModalOpen} onClose={() => setIsContactModalOpen(false)} />
       </div>
     </div>
   );

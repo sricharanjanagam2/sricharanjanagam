@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { motion } from 'framer-motion';
 
-function Navbar() {
+function Navbar({ onOpenContact }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -39,8 +39,7 @@ function Navbar() {
               {link.name}
             </a>
           ))}
-          <button onClick={() => alert(`Phone: 9701684615
-Instagram: @sricharan_janagam`)} className="px-5 py-2 rounded-full border border-cyan-400/50 text-cyan-300 hover:bg-cyan-400/10 hover:shadow-[0_0_15px_rgba(0,243,255,0.3)] transition-all font-medium text-sm">
+          <button onClick={onOpenContact} className="px-5 py-2 rounded-full border border-cyan-400/50 text-cyan-300 hover:bg-cyan-400/10 hover:shadow-[0_0_15px_rgba(0,243,255,0.3)] transition-all font-medium text-sm">
             Contact Me
           </button>
         </nav>
@@ -74,8 +73,7 @@ Instagram: @sricharan_janagam`)} className="px-5 py-2 rounded-full border border
           ))}
           <button 
             onClick={() => {
-              alert(`Phone: 9701684615
-Instagram: @sricharan_janagam`);
+              onOpenContact();
               setMobileMenuOpen(false);
             }} 
             className="mt-2 px-5 py-3 rounded-lg border border-cyan-400/50 text-cyan-300 hover:bg-cyan-400/10 transition-all font-medium text-lg inline-block w-full"
