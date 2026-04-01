@@ -51,7 +51,8 @@ function Hero() {
               View Showcase
             </a>
             <button 
-              onClick={() => alert('Phone: 9701684615\\nInstagram: @sricharan_janagam')}
+              onClick={() => alert(`Phone: 9701684615
+Instagram: @sricharan_janagam`)}
               className="px-8 py-4 bg-transparent border border-slate-600 hover:border-cyan-400 text-slate-300 hover:text-cyan-300 font-semibold rounded-lg transition-all"
             >
               Contact Me
