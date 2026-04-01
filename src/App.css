@@ -386,3 +386,17 @@ button:disabled {
   line-height: 1.6;
   color: #e0e0e0;
 }
+
+.watermark {
+  position: fixed;
+  bottom: 10px;
+  right: 15px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.2);
+  pointer-events: none;
+  z-index: 1000;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+

@@ -1,5 +1,4 @@
 import { useState, useRef, useEffect } from 'react';
-import { GoogleGenerativeAI } from "@google/generative-ai";
 import './App.css';
 
 const STM_MAX_SIZE = 5;
@@ -18,11 +17,6 @@ function App() {
   
   const [inputValue, setInputValue] = useState("");
   const inputRef = useRef(null);
-  
-  // AI State
-  const [apiKey, setApiKey] = useState(localStorage.getItem('gemini_api_key') || '');
-  const [aiAnalysis, setAiAnalysis] = useState('');
-  const [isAnalyzing, setIsAnalyzing] = useState(false);
 
   useEffect(() => {
     inputRef.current?.focus();
@@ -116,58 +110,12 @@ function App() {
       setLtm([]);
       setForgotten([]);
       setTotalRepetitions(0);
-      setAiAnalysis('');
     }
   };
 
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
       addMemory();
-    }
-  };
-
-  const handleApiKeyChange = (e) => {
-    const key = e.target.value;
-    setApiKey(key);
-    localStorage.setItem('gemini_api_key', key);
-  };
-
-  const analyzeMemories = async () => {
-    if (!apiKey) {
-      alert("Please enter a Gemini API Key first.");
-      return;
-    }
-    setIsAnalyzing(true);
-    setAiAnalysis('');
-    
-    try {
-      const genAI = new GoogleGenerativeAI(apiKey);
-      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-      
-      const prompt = `
-You are a psychological analyst. I will provide you with a snapshot of an individual's memory state, which is divided into Short-Term Memory, Long-Term Memory (important, repeated memories), and Forgotten Memories (things they lost track of).
-
-Based on these memories, generate a brief (3-4 sentences) psychological profile or persona for this individual. What kind of person are they? What do they value or struggle with? Make it engaging and insightful.
-
-=== MEMORY STATE ===
-Short-Term Memory:
-${stm.length === 0 ? "Empty" : stm.map(m => `- ${m.memory} (recalled ${m.count} times)`).join('\n')}
-
-Long-Term Memory:
-${ltm.length === 0 ? "Empty" : ltm.map(m => `- ${m.memory} (recalled ${m.count} times)`).join('\n')}
-
-Forgotten Memories:
-${forgotten.length === 0 ? "Empty" : forgotten.map(m => `- ${m.memory} (recalled ${m.count} times)`).join('\n')}
-      `;
-
-      const result = await model.generateContent(prompt);
-      const response = await result.response;
-      setAiAnalysis(response.text());
-    } catch (error) {
-      console.error(error);
-      setAiAnalysis(`Failed to analyze memories. Please check your API key and try again.\n\nError: ${error.message}`);
-    } finally {
-      setIsAnalyzing(false);
     }
   };
 
@@ -212,23 +160,6 @@ ${forgotten.length === 0 ? "Empty" : forgotten.map(m => `- ${m.memory} (recalled
           </button>
           <button className="btn btn-danger" onClick={clearSystem}>
             Clear System
-          </button>
-        </div>
-
-        <div className="ai-controls">
-          <input 
-            type="password" 
-            className="memory-input ai-input" 
-            placeholder="Gemini API Key..." 
-            value={apiKey}
-            onChange={handleApiKeyChange}
-          />
-          <button 
-            className="btn btn-primary api-btn" 
-            onClick={analyzeMemories}
-            disabled={isAnalyzing || !apiKey}
-          >
-            {isAnalyzing ? "Analyzing..." : "✨ AI Reflection"}
           </button>
         </div>
       </div>
@@ -329,19 +260,7 @@ ${forgotten.length === 0 ? "Empty" : forgotten.map(m => `- ${m.memory} (recalled
         </div>
       </div>
 
-      {aiAnalysis && (
-        <div className="glass-panel ai-panel">
-          <div className="section-header">
-            <h2 className="section-title" style={{color: '#c77dff'}}>✨ AI Psychological Profile</h2>
-          </div>
-          <div className="ai-content">
-            {aiAnalysis.split('\n').map((line, idx) => (
-              <p key={idx} style={{marginBottom: line.trim() ? '1rem' : '0'}}>{line}</p>
-            ))}
-          </div>
-        </div>
-      )}
-
+      <div className="watermark">sricharan</div>
     </div>
   );
 }
