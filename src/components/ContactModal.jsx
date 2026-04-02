@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Phone } from 'lucide-react';
+import { X, Phone, Mail } from 'lucide-react';
 import { FaInstagram } from 'react-icons/fa';
 
 function ContactModal({ isOpen, onClose }) {
@@ -35,16 +35,26 @@ function ContactModal({ isOpen, onClose }) {
           </button>
 
           <h3 className="text-3xl font-bold font-poppins text-white mb-2 mt-4">Let's <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500">Connect</span></h3>
-          <p className="text-slate-400 text-sm mb-8">Feel free to reach out to me via phone or Instagram!</p>
+          <p className="text-slate-400 text-sm mb-8">Feel free to reach out to me via phone, email or Instagram!</p>
 
           <div className="w-full space-y-4">
             <a href="tel:9701684615" className="flex items-center gap-4 p-4 rounded-xl bg-slate-800/50 border border-slate-700 hover:border-cyan-400/50 hover:bg-slate-800 transition-all group">
-              <div className="w-12 h-12 rounded-full bg-cyan-500/10 flex items-center justify-center text-cyan-400 group-hover:bg-cyan-500/20 group-hover:scale-110 transition-all">
+              <div className="w-12 h-12 shrink-0 rounded-full bg-cyan-500/10 flex items-center justify-center text-cyan-400 group-hover:bg-cyan-500/20 group-hover:scale-110 transition-all">
                 <Phone size={24} />
               </div>
-              <div className="text-left">
+              <div className="text-left min-w-0">
                 <p className="text-xs text-slate-400 uppercase tracking-widest font-semibold mb-1">Phone</p>
-                <p className="text-lg font-medium text-slate-200 group-hover:text-cyan-300 transition-colors">+91 9701684615</p>
+                <p className="text-lg font-medium text-slate-200 group-hover:text-cyan-300 transition-colors truncate">+91 9701684615</p>
+              </div>
+            </a>
+
+            <a href="mailto:sricharanjanagam2@gmail.com" className="flex items-center gap-4 p-4 rounded-xl bg-slate-800/50 border border-slate-700 hover:border-emerald-400/50 hover:bg-slate-800 transition-all group">
+              <div className="w-12 h-12 shrink-0 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-400 group-hover:bg-emerald-500/20 group-hover:scale-110 transition-all">
+                <Mail size={24} />
+              </div>
+              <div className="text-left min-w-0">
+                <p className="text-xs text-slate-400 uppercase tracking-widest font-semibold mb-1">Email</p>
+                <p className="text-lg sm:text-base md:text-lg font-medium text-slate-200 group-hover:text-emerald-300 transition-colors truncate">sricharanjanagam2@gmail.com</p>
               </div>
             </a>
 
