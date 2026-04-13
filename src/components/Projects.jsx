@@ -18,7 +18,7 @@ const projects = [
     description: "A real-time messaging application with integrated AI chatbots, powered by Gemini and React.",
     tech: ["React", "Firebase", "Gemini API", "Tailwind"],
     github: "#",
-    live: "#",
+    live: "https://edith-chatbot-oo7v.onrender.com/",
     color: "from-blue-500 to-cyan-400"
   },
   {
