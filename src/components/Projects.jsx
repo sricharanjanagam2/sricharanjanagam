@@ -65,7 +65,17 @@ function Projects() {
               className="group relative"
             >
               <div className="absolute inset-0 bg-gradient-to-tr opacity-0 group-hover:opacity-20 transition-opacity duration-500 rounded-2xl blur-xl -z-10 bg-cyan-500"></div>
-              <div className={`glass-card h-full p-8 rounded-2xl flex flex-col border transition-colors ${
+              <div 
+                onClick={(e) => {
+                  if (project.isSimulator) {
+                    handleSimulatorClick(e);
+                  } else if (project.live !== '#') {
+                    window.open(project.live, '_blank', 'noopener,noreferrer');
+                  }
+                }}
+                className={`glass-card h-full p-8 rounded-2xl flex flex-col border transition-all ${
+                  project.live !== '#' || project.isSimulator ? 'cursor-pointer group-hover:-translate-y-1' : ''
+                } ${
                 project.isSimulator
                   ? 'border-purple-500/30 group-hover:border-purple-400/60 shadow-[0_0_30px_rgba(168,85,247,0.1)]'
                   : 'border-white/10 group-hover:border-white/30'
@@ -97,18 +107,25 @@ function Projects() {
                 </div>
 
                 <div className="flex gap-4 pt-4 border-t border-slate-700/50 mt-auto">
-                  <a href={project.github} target="_blank" rel="noreferrer" className="flex items-center gap-2 text-slate-400 hover:text-white transition-colors text-sm font-medium">
+                  <a href={project.github} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()} className="flex items-center gap-2 text-slate-400 hover:text-white transition-colors text-sm font-medium">
                     <FaGithub size={18} /> Code
                   </a>
                   {project.isSimulator ? (
                     <button
-                      onClick={handleSimulatorClick}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleSimulatorClick(e);
+                      }}
                       className="flex items-center gap-2 text-purple-400 hover:text-purple-300 transition-colors text-sm font-medium ml-auto"
                     >
                       Try Demo <ExternalLink size={18} />
                     </button>
                   ) : (
-                    <a href={project.live} className="flex items-center gap-2 text-cyan-400 hover:text-cyan-300 transition-colors text-sm font-medium ml-auto">
+                    <a href={project.live} target={project.live !== '#' ? "_blank" : undefined} rel="noreferrer" onClick={(e) => {
+                      if (project.live !== '#') {
+                        e.stopPropagation();
+                      }
+                    }} className="flex items-center gap-2 text-cyan-400 hover:text-cyan-300 transition-colors text-sm font-medium ml-auto">
                       Live Demo <ExternalLink size={18} />
                     </a>
                   )}
